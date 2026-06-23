@@ -68,7 +68,8 @@ Explicación de este Algoritmo:
 * Control de Memoria Dinámica: La cinta (self.tape) se modela mediante un diccionario en lugar de una lista indexada. Esto permite emular una cinta infinita en ambas direcciones sin necesidad de reestructurar arreglos en memoria, asociando posiciones enteras negativas o positivas directamente con los símbolos correspondientes.
 
 
-# 2.2. Aislamiento y Separación de Bloques de la MTUEste fragmento dentro de la decodificación se encarga de segmentar la cadena binaria utilizando los delimitadores de control estructurados.
+# 2.2. Aislamiento y Separación de Bloques de la MTU
+Este fragmento dentro de la decodificación se encarga de segmentar la cadena binaria utilizando los delimitadores de control estructurados.
 
 ```Python
 # Segmentación y limpieza inicial de la cadena binaria
@@ -87,7 +88,8 @@ Explicación de este Algoritmo:
 * Frontera de Datos (000): Divide el flujo binario de entrada para aislar el "software" (las transiciones de la máquina a simular) del "input" (la palabra de trabajo $w$).
 * Extracción de Instrucciones (00): Genera sub-bloques de ejecución independientes. Cada cadena resultante representa una única instrucción $\delta$, la cual será procesada de manera secuencial por el intérprete unitario.
 
-# 2.3. Decodificación Unaria de TransicionesUna vez separadas las instrucciones, este fragmento procesa cada bloque individual para mapear los conteos de unos (1) hacia la lógica interna de transiciones de Python.
+# 2.3. Decodificación Unaria de TransicionesUna vez separadas las instrucciones
+Este fragmento procesa cada bloque individual para mapear los conteos de unos (1) hacia la lógica interna de transiciones de Python.
 
 ```Python
 for t_raw in transitions_raw:
@@ -112,7 +114,8 @@ Explicación de este Algoritmo:
 * Conteo de Unos por Posición: Divide el sub-bloque usando el separador lógico 0. Al evaluar len(p), transforma la codificación unaria del archivo de texto en variables enteras con significado conceptual.
 * Mapeo de Control: Traduce enteros a identificadores de texto plano compatibles con la clase (ej. 3 unos en la posición del símbolo se transforman en "B", 1 uno en la dirección se traduce como "L"). Al finalizar, inyecta la regla decodificada en el diccionario global de ejecución.
 
-# 2.4. Decodificación Dinámica de la Cadena de EntradaEste segmento interpreta la sección posterior al delimitador triple cero para montar los caracteres válidos sobre la estructura lógica del visualizador.
+# 2.4. Decodificación Dinámica de la Cadena de Entrada
+Este segmento interpreta la sección posterior al delimitador triple cero para montar los caracteres válidos sobre la estructura lógica del visualizador.
 
 ```Python
 if cadena_raw:
@@ -126,7 +129,8 @@ if cadena_raw:
 Explicación de este Algoritmo:
 * Procesamiento de Símbolos: Recorre los bloques unarios de la palabra de trabajo separados por ceros. Cada ráfaga de unos es traducida mediante un diccionario estático para reconstruir los caracteres primitivos (0, 1 o B). El resultado se empaqueta en una sola cadena que se transfiere directamente a la interfaz de usuario.
 
-# 2.5. Validación y Parada Computacional (Halt)Este bloque lógico dentro de cada paso elemental determina si el procesamiento debe continuar o si la simulación ha finalizado de forma definitiva.
+# 2.5. Validación y Parada Computacional (Halt)
+Este bloque lógico dentro de cada paso elemental determina si el procesamiento debe continuar o si la simulación ha finalizado de forma definitiva.
 
 ```Python
 sym_in = self.get_tape_symbol(self.head)
@@ -142,7 +146,8 @@ Explicación de este Algoritmo:
 * Recuperación de Símbolo: Consulta la posición actual del cabezal físico mediante un método seguro que intercepta celdas vacías y retorna el Blanco por defecto.
 * Criterio de Parada (Halt): Modela el comportamiento de parada clásico de una Máquina de Turing. Si la configuración actual carece de una directiva de movimiento, detiene el reloj lúdico (self.is_halted = True) y discrimina el resultado validando si el estado final se encuentra dentro del conjunto de estados de aceptación preconfigurados.
 
-# 2.6. Mutación del Estado Físico y DesplazamientoSi la regla es válida, este segmento altera físicamente los valores de la cinta virtual y redefine las coordenadas del puntero.
+# 2.6. Mutación del Estado Físico y Desplazamiento Si la regla es válida
+Este segmento altera físicamente los valores de la cinta virtual y redefine las coordenadas del puntero.
 
 ```Python
 new_state, sym_out, move = self.transitions[(self.current_state, sym_in)]
